@@ -22,11 +22,12 @@ def agave_functions():
 
 	response = Response(responseText)
 	response.headers["Content-Type"] = "application/json"
+	response.headers["Access-Control-Allow-Origin"] = "*"
 	return response
 
 @app.route("/functions.html", methods = ["GET"])
 def agave_page():
-	responseText = customfunctions.getPageHtml()
+	responseText = customfunctions.getPageHtml(devMode = True)
 	response = Response(responseText)
 	response.headers["Content-Type"] = "text/html"
 	return response
