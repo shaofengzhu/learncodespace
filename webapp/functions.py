@@ -4,4 +4,6 @@ from officepy import customfunctions
 def myadd(x, y):
 	return x + y
 
-
+@customfunctions.customfunction(name = "BADADD")
+def badadd(x, y):
+	return x + y + 1
