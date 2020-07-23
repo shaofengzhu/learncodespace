@@ -13,9 +13,12 @@ def index():
 
 @app.route("/functions", methods = ["GET", "POST"])
 def agave_functions():
-	
+	print(f"{request.method} /functions")
 	if request.method == "POST":
+		data = request.get_data(as_text = True)
+		print("Body=" + data)
 		requestPayloadObj = request.get_json(force=True)
+		print("Invoke function")
 		responseText = customfunctions.invokeWithPayload(requestPayloadObj)
 	else:
 		responseText = customfunctions.registration.getMetadataJson()
@@ -31,3 +34,6 @@ def agave_page():
 	response = Response(responseText)
 	response.headers["Content-Type"] = "text/html"
 	return response
+
+if __name__ == "__main__":
+	app.run()
