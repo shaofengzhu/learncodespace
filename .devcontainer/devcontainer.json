@@ -1,3 +1,11 @@
 {
-    "image": "python:latest"
+    "image": "python:latest",
+    "extensions": [
+		"ms-python.python"
+	],
+	"forwardPorts": [5000],
+	"postCreateCommand": [
+        "pip3 install -r requirements.txt",
+        "pip3 install officepylib/officepy-0.0.3.tar.gz"
+    ]
 }
