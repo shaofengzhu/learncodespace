@@ -1,15 +1,17 @@
 # Create Codespace
 1. Create codespace and point to https://github.com/shaofengzhu/learncodespace.git
-2. Inside codespace, please
+2. Run app.py
+3. Setup port forward using VS code as there is bug when using browser port forward.
+4. Configure local HTTPS reverse proxy for the port-forwrad as Excel requires HTTPS web site.
 ```console
-pip3 install flask
-pip3 install officepylib/officepy-0.0.3.tar.gz
+REM Only need to run office-addin-dev-certs once
+npx office-addin-dev-certs install --days 365
+REM The <port> is the port created by VS code port forward
+npx office-addin-https-reverse-proxy --port 5500 --url http://localhost:<port>
 ```
-3. Run app.py
-4. Setup port forward
 
 # Excel
-1. Access `http://localhost:<port>/functions.html`, click "Generate Manifest", then save the manifst file.
+1. Access `https://localhost:5500/functions.html`, click "Generate Manifest", then save the manifst file.
 
 2. Access `https://microsoft-my.sharepoint-df.com/`, create a Excel file
 
@@ -34,3 +36,9 @@ Now, go to Excel, click the "Python" -> "Show Taskpane", click "Register Functio
 # Troubleshooting
 ## If you created a new codespace
 Please cleanup the browser cache, and generate a new manifest.
+
+## If officepy package does not work
+Inside codespace, please
+```console
+pip3 install -r requirements.txt
+```
