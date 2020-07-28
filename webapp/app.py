@@ -37,7 +37,7 @@ def agave_functions():
 
 @app.route("/functions.html", methods = ["GET"])
 def agave_page():
-	responseText = customfunctions.getPageHtml(True)
+	responseText = customfunctions.getPageHtml()
 	response = Response(responseText)
 	response.headers["Content-Type"] = "text/html"
 	return response
