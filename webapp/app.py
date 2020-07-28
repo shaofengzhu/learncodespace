@@ -20,6 +20,13 @@ def agave_functions():
 		requestPayloadObj = request.get_json(force=True)
 		print("Invoke function")
 		responseText = customfunctions.invokeWithPayload(requestPayloadObj)
+	elif request.method == "GET":
+		data = request.args.get("invoke", "")
+		if (len(data) > 0):
+			print("Invoke function: " + data)
+			responseText = customfunctions.invokeWithPayload(data)
+		else:
+			responseText = customfunctions.registration.getMetadataJson()
 	else:
 		responseText = customfunctions.registration.getMetadataJson()
 
@@ -30,7 +37,7 @@ def agave_functions():
 
 @app.route("/functions.html", methods = ["GET"])
 def agave_page():
-	responseText = customfunctions.getPageHtml()
+	responseText = customfunctions.getPageHtml(True)
 	response = Response(responseText)
 	response.headers["Content-Type"] = "text/html"
 	return response
