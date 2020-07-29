@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import io
 import matplotlib.pyplot as plt
+import matplotlib.backends.backend_agg
 import base64
 
 @customfunctions.customfunction(name = "MYADD")
@@ -54,14 +55,10 @@ def testa(rows, columns):
 	name="TESTPLOT",
 	resultType=customfunctions.ResultType.image
 	)
-def testplot(rows, columns):
-	plt.figure()
-	plt.plot([rows, columns])
-	plt.title(f"Test {rows}, {columns}")
-	buf = io.BytesIO()
-	plt.savefig(buf, format='png')
-	buf.seek(0)
-	imgBytes = base64.b64encode(buf.read())
-	imgString = imgBytes.decode('ascii')
-	buf.close()
-	return imgString
+def testplot(xrange, yrange):
+	fig = plt.Figure()
+	axis = fig.add_subplot(1, 1, 1)
+	xs = range(xrange)
+	ys = [random.randint(1, yrange) for x in xs]
+	axis.plot(xs, ys)
+	return fig

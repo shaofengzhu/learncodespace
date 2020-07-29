@@ -1,5 +1,6 @@
 from flask import Flask, request, escape, Response
 from officepy import customfunctions
+import os
 
 import functions
 
@@ -37,7 +38,8 @@ def agave_functions():
 
 @app.route("/functions.html", methods = ["GET"])
 def agave_page():
-	responseText = customfunctions.getPageHtml()
+	devMode = os.getenv("EXCEL_DEVMODE", "").lower() in {"1", "yes", "true"}
+	responseText = customfunctions.getPageHtml(devMode = devMode)
 	response = Response(responseText)
 	response.headers["Content-Type"] = "text/html"
 	return response
